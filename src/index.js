@@ -35,10 +35,30 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    ' ': ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+    const symbolsTens = expr.match(/.{1,10}/g);   //разделить на десятки
+
+    const morseSymbols = symbolsTens.map(elem => {
+        if (elem === "**********") {
+            return " ";
+        }
+        else {
+            const pairsMorseSymbols = elem.match(/.{1,2}/g); //разделить на двойки
+
+            const specialCases = {
+                "10" : ".",
+                "11" : "-",
+                "00" : "",
+            }
+            
+        return pairsMorseSymbols.map(el => specialCases[el]).join("");
+        } 
+    });
+
+    return morseSymbols.map(element =>  MORSE_TABLE[element]).join("");
 }
 
 module.exports = {
